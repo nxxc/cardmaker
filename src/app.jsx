@@ -1,7 +1,9 @@
-import './app.module.css';
+import React from 'react';
 
-const App = () => {
-  return <h1>Hello :)</h1>;
+import Login from './components/login/login.jsx';
+
+const App = ({ authService }) => {
+  return <Login authService={authService} />;
 };
 
 export default App;
