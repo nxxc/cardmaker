@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../footer/footer.jsx';
 import Header from '../header/header.jsx';
+import Editor from '../editor/editor';
+import Preview from '../preview/preview';
 import styles from './card_maker.module.css';
 
 const CardMaker = ({ authService }) => {
@@ -21,7 +23,10 @@ const CardMaker = ({ authService }) => {
   return (
     <section className={styles.maker}>
       <Header onLogout={onLogout} />
-      <section>hello</section>
+      <div className={styles.container}>
+        <Editor />
+        <Preview />
+      </div>
       <Footer />
     </section>
   );
