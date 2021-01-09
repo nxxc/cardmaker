@@ -1,12 +1,12 @@
-@value makerShadow,makerWhite,makerBlack,makerColorful,makerWheat from '../../common/colors.css';
+@value makerBlack, makerWhite, makerColorful, makerShadow, makerWheat from '../../common/colors.css';
 
 .card {
   display: flex;
   align-items: center;
-  margin-bottom: 0.5em;
-  border-radius: 1em;
-  padding: 0.2em 0;
   width: 100%;
+  border-radius: 1em;
+  margin-bottom: 0.5em;
+  padding: 0.2em 0;
   background-color: yellow;
   box-shadow: 6px 6px 8px 0px makerShadow;
   max-width: 30rem;
@@ -21,7 +21,6 @@
   background-color: makerWhite;
   color: makerBlack;
 }
-
 .card.colorful {
   background: makerColorful;
 }
@@ -32,8 +31,9 @@
   padding: 1em;
   margin-left: 0.5em;
   margin-right: 1em;
-  border-bottom: 50%;
+  border-radius: 50%;
 }
+
 .info {
   width: 100%;
 }
