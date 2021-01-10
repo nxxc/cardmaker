@@ -4,7 +4,7 @@ import styles from './app.module.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import CardMaker from './components/card_maker/card_maker.jsx';
 
-const App = ({ authService }) => {
+const App = ({ authService, FileInput }) => {
   return (
     <div className={styles.app}>
       <Router>
@@ -13,7 +13,7 @@ const App = ({ authService }) => {
             <Login authService={authService} />
           </Route>
           <Route path='/app'>
-            <CardMaker authService={authService} />
+            <CardMaker authService={authService} FileInput={FileInput} />
           </Route>
         </Switch>
       </Router>
