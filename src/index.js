@@ -16,5 +16,5 @@ ReactDOM.render(
   <React.StrictMode>
     <App authService={authService} FileInput={FileInput} />
   </React.StrictMode>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );

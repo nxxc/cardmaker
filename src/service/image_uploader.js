@@ -10,7 +10,7 @@ class ImageUploader {
       {
         method: 'POST',
         body: formData,
-      },
+      }
     );
     return await result.json();
   }
