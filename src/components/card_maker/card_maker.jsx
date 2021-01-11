@@ -6,42 +6,11 @@ import Editor from '../editor/editor';
 import Preview from '../preview/preview';
 import styles from './card_maker.module.css';
 
-const CardMaker = ({ FileInput, authService }) => {
-  const [cards, setCards] = useState({
-    1: {
-      id: '1',
-      name: 'xxxx',
-      company: 'Samsung',
-      theme: 'light',
-      title: 'Software Engineer',
-      email: 'ellie@gmail.com',
-      message: 'go for it',
-      fileName: 'ellie',
-      fileURL: null,
-    },
-    2: {
-      id: '2',
-      name: 'jisoo',
-      company: 'kakako',
-      theme: 'colorful',
-      title: 'frontend',
-      email: 'jisoo@gmail.com',
-      message: 'Hello !',
-      fileName: 'jisoo',
-      fileURL: null,
-    },
-    3: {
-      id: '3',
-      name: 'jenny',
-      company: 'blackpink',
-      theme: 'dark',
-      title: 'singer',
-      email: 'jenny@gmail.com',
-      message: 'in your area',
-      fileName: 'jenny',
-      fileURL: null,
-    },
-  });
+const CardMaker = ({ FileInput, authService, cardRepository }) => {
+  const historyState = useHistory().state;
+  const [cards, setCards] = useState({});
+  const [userId, setUserId] = useState(historyState && historyState.id);
+  console.log(userId);
 
   const history = useHistory();
   const onLogout = () => {
@@ -49,8 +18,22 @@ const CardMaker = ({ FileInput, authService }) => {
   };
 
   useEffect(() => {
+    if (!userId) {
+      return;
+    }
+    const stopSync = cardRepository.syncCards(userId, (cards) => {
+      setCards(cards);
+    });
+    return () => {
+      stopSync();
+    };
+  }, [userId]);
+
+  useEffect(() => {
     authService.onAuthChange((user) => {
-      if (!user) {
+      if (user) {
+        setUserId(user.uid);
+      } else {
         history.push('/');
       }
     });
@@ -62,6 +45,7 @@ const CardMaker = ({ FileInput, authService }) => {
       updated[card.id] = card;
       return updated;
     });
+    cardRepository.saveCard(userId, card);
   };
 
   const deleteCard = (card) => {
@@ -70,6 +54,7 @@ const CardMaker = ({ FileInput, authService }) => {
       delete updated[card.id];
       return updated;
     });
+    cardRepository.removeCard(userId, card);
   };
 
   return (
